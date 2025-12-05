@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,37 +16,44 @@ public class Main {
         "Buddy Comedy, Satire, Dark Comedy", "Education System, Career Pressure, Friendship, Family Expectations, Social Norms"));
         movies.add(new ComedyMovie("Home Alone", "Chris Columbus", 1990, 7.7f,
         "Slapstick, Buddy Comedy", "Family Life, Childhood, Christmas, Responsibility, Independence"));
-        Scanner input = new Scanner(System.in);
-        boolean status = true;
-        while (status) {
+        while (true) {
             Utils.clear();
             Utils.menu();
             System.out.print(">> ");
-            int command = input.nextInt();
-            input.nextLine(); // captures \n
-            switch (command) {
-                case 0:
-                    status = false;
-                    break;
-                case 1:
-                    movieDB.add();
-                    break;
-                case 2:
-                    Utils.clear();
-                    movieDB.display();
-                    Utils.pause();
-                    break;
-                case 3:
-                    movieDB.search();
-                    break;
-                case 4:
-                    movieDB.update();
-                default:
-                    System.out.println("Invalid Command!");
-                    break;
+            try {
+                int command = Utils.input.nextInt();
+                Utils.input.nextLine(); // captures \n
+                switch (command) {
+                    case 0:
+                        Utils.input.close();
+                        System.exit(0);
+                        break;
+                    case 1:
+                        movieDB.add();
+                        break;
+                    case 2:
+                        Utils.clear();
+                        movieDB.display();
+                        Utils.pause();
+                        break;
+                    case 3:
+                        movieDB.search();
+                        Utils.pause();
+                        break;
+                    case 4:
+                        movieDB.update();
+                        Utils.pause();
+                        break;
+                    default:
+                        System.out.println("Invalid Command! Command was " + command);
+                        Utils.pause();
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                Utils.input.nextLine();
+                System.out.println("\n\nInvalid input! Please enter an integer.");
+                Utils.pause();
             }
         }
-        input.close();
-        System.exit(0);
     }
 }

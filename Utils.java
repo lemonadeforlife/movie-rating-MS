@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Utils implements Database{
+    public static Scanner input = new Scanner(System.in);
     ArrayList<Movie> movieList;
     Utils(ArrayList<Movie> movieList){
         this.movieList = movieList;
@@ -9,22 +10,18 @@ public class Utils implements Database{
     public static void clear(){
         try {
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                // Windows
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
-                // Linux/Mac/Unix
                 new ProcessBuilder("clear").inheritIO().start().waitFor();
             }
         } catch (Exception e) {
-            // Fallback: print blank lines
             System.out.print("\033[H\033[2J");  // ANSI escape code
             System.out.flush();
         }
     }
     public static void pause(){
         System.out.print("\n\nPress 'Enter' key to continue........");
-        Scanner sc = new Scanner(System.in);
-        sc.nextLine();
+        input.nextLine();
     }
     public static void menu(){
         System.out.println("[1] Add Movie");
@@ -35,8 +32,6 @@ public class Utils implements Database{
     }
     @Override
     public void add(){
-        Scanner input = new Scanner(System.in);
-
         System.out.print("What type Movie is it?\n\t[1] Action\n\t[2] Comedy\n>> ");
         int choice = input.nextInt();
         input.nextLine(); // captures \n
@@ -64,15 +59,12 @@ public class Utils implements Database{
             String humorTarget = input.nextLine();
             movieList.add(new ComedyMovie(title, directorName, year, rating, comedyStyle, humorTarget));
         }
-        input.close();
     }
 
     @Override
     public void search(){
-        Scanner input = new Scanner(System.in);
         System.out.print("Search Movie: ");
         String searchKeyword = input.nextLine();
-        input.close();
         for(Movie m:movieList){
             if(m.getTitle().toLowerCase().contains(searchKeyword.toLowerCase())){
                 System.out.println();
@@ -84,7 +76,6 @@ public class Utils implements Database{
 
     @Override
     public void update(){
-        Scanner input = new Scanner(System.in);
         System.out.print("\nWhat type Movie is it?\n\t[1] Action\n\t[2] Comedy\n>> ");
         int movieType = input.nextInt();
         input.nextLine(); // captures \n
@@ -100,9 +91,8 @@ public class Utils implements Database{
         display(movieType);
         System.out.print("Enter Movie Index: ");
         int index = input.nextInt();
-        input.nextLine();
+        input.nextLine(); // captures \n
         getAttr(movieType, index, updateChoice);
-        input.close();
     }
     @Override
     public void display(){
@@ -132,7 +122,6 @@ public class Utils implements Database{
     }
     public void getAttr(int movieType, int index, int attr){
         int count=0;
-        Scanner input = new Scanner(System.in);
         for(Movie m : movieList){
             if(movieType==1){
                 if(m instanceof ActionMovie){
@@ -155,6 +144,7 @@ public class Utils implements Database{
                             case 4:
                                 System.out.print("Update Rating: ");
                                 m.setRating(input.nextFloat());
+                                input.nextLine();
                                 break;
                             case 5:
                                 System.out.print("Update Stunt Director Name: ");
@@ -188,6 +178,7 @@ public class Utils implements Database{
                             case 4:
                                 System.out.print("Update Rating: ");
                                 m.setRating(input.nextFloat());
+                                input.nextLine();
                                 break;
                             case 5:
                                 System.out.print("Update Comedy Style: ");
@@ -202,6 +193,5 @@ public class Utils implements Database{
                 }  
             }
         }
-        System.out.println();
     }
 }
