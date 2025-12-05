@@ -6,7 +6,27 @@ public class Utils implements Database{
     Utils(ArrayList<Movie> movieList){
         this.movieList = movieList;
     }
-    void menu(){
+    public static void clear(){
+        try {
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                // Windows
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                // Linux/Mac/Unix
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (Exception e) {
+            // Fallback: print blank lines
+            System.out.print("\033[H\033[2J");  // ANSI escape code
+            System.out.flush();
+        }
+    }
+    public static void pause(){
+        System.out.print("\n\nPress 'Enter' key to continue........");
+        Scanner sc = new Scanner(System.in);
+        sc.nextLine();
+    }
+    public static void menu(){
         System.out.println("[1] Add Movie");
         System.out.println("[2] Display Movie");
         System.out.println("[3] Search Movie");

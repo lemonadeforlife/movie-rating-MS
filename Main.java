@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,8 +16,37 @@ public class Main {
         "Buddy Comedy, Satire, Dark Comedy", "Education System, Career Pressure, Friendship, Family Expectations, Social Norms"));
         movies.add(new ComedyMovie("Home Alone", "Chris Columbus", 1990, 7.7f,
         "Slapstick, Buddy Comedy", "Family Life, Childhood, Christmas, Responsibility, Independence"));
-        movieDB.display();
-        movieDB.update();
-        movieDB.display();
+        Scanner input = new Scanner(System.in);
+        boolean status = true;
+        while (status) {
+            Utils.clear();
+            Utils.menu();
+            System.out.print(">> ");
+            int command = input.nextInt();
+            input.nextLine(); // captures \n
+            switch (command) {
+                case 0:
+                    status = false;
+                    break;
+                case 1:
+                    movieDB.add();
+                    break;
+                case 2:
+                    Utils.clear();
+                    movieDB.display();
+                    Utils.pause();
+                    break;
+                case 3:
+                    movieDB.search();
+                    break;
+                case 4:
+                    movieDB.update();
+                default:
+                    System.out.println("Invalid Command!");
+                    break;
+            }
+        }
+        input.close();
+        System.exit(0);
     }
 }
