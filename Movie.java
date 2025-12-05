@@ -1,4 +1,4 @@
-// wiki about Movie: https://en.wikipedia.org/wiki/Film_genre#Examples_of_genres_and_subgenres
+// https://en.wikipedia.org/wiki/Film_genre#Examples_of_genres_and_subgenres
 
 public abstract class Movie{
     private String title;
@@ -40,5 +40,5 @@ public abstract class Movie{
         this.rating = rating;
     }
     // abstract method
-    abstract void displayDetails();
+    public abstract void displayDetails();
 }

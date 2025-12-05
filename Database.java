@@ -1,6 +1,7 @@
 interface Database {
-    void add();
-    void searchByTitle();
-    void displayAllTitles();
-    void displayAllDetails();
+    public void add();
+    public void search();
+    public void update();
+    public void display();
+    public void display(int movieType);
 }
