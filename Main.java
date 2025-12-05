@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
-public class Main {
+public class Main implements Format {
     public static void main(String[] args) {
+        String cwd = System.getProperty("user.dir");
         ArrayList <Movie> movies = new ArrayList<>();
         Utils movieDB = new Utils(movies);
         // pre-written examples
@@ -18,8 +19,9 @@ public class Main {
         "Slapstick, Buddy Comedy", "Family Life, Childhood, Christmas, Responsibility, Independence"));
         while (true) {
             Utils.clear();
+            System.out.println(art);
             Utils.menu();
-            System.out.print(">> ");
+            System.out.printf(BGRN+"H1-Group01@CSE222:"+RESET+BYEL+"(%s)"+RESET+BOLD+"$ "+RESET, cwd);
             try {
                 int command = Utils.input.nextInt();
                 Utils.input.nextLine(); // captures \n
